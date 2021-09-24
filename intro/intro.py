@@ -8,7 +8,9 @@ sc.set_figure_params(figsize=(4, 4))
 # load data/check if its there
 adata = scvi.data.heart_cell_atlas_subsampled()
 
-# preprocess lowly expressed genes
+print(adata)
+
+# preprocessing: filter out anything with less than x counts
 sc.pp.filter_genes(adata, min_counts=3)
 
 adata.layers["counts"] = adata.X.copy() # preserve counts
