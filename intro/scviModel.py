@@ -1,9 +1,7 @@
-from re import T
 from numpy import save
 import scvi
 import scanpy as sc
 
-sc.set_figure_params(figsize=(4, 4))
 saveLocation = "models/intro"
 
 # load data/check if its there
