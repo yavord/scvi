@@ -2,7 +2,7 @@ from pandas.core.frame import DataFrame
 import scvi
 import scanpy as sc
 
-saveLocation = "models/intro/"
+saveLocation = "models/intro/hca_ss/"
 sc.set_figure_params(figsize=(4, 4))
 
 adata = scvi.data.read_h5ad(saveLocation+"adata.h5ad")

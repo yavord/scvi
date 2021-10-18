@@ -2,7 +2,7 @@ from numpy import save
 import scvi
 import scanpy as sc
 
-saveLocation = "models/intro"
+saveLocation = "models/intro/hca_ss"
 
 # load data/check if its there
 adata = scvi.data.heart_cell_atlas_subsampled()
