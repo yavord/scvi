@@ -1,3 +1,4 @@
+from pandas.core.frame import DataFrame
 import scvi
 import scanpy as sc
 
@@ -10,7 +11,7 @@ model = scvi.model.SCVI.load(saveLocation, adata = adata)
 latent = model.get_latent_representation()
 adata.obsm["X_scVI"] = latent
 
-# print(adata[adata.obs.cell_type])
+# print(adata.obs.cell_type.head())
 adata_subset = adata[adata.obs.cell_type == "Fibroblast"]
 latent_subset = model.get_latent_representation(adata_subset)
 
@@ -38,17 +39,32 @@ adata.layers["scvi_normalized"] = model.get_normalized_expression(library_size=1
 # )
 
 ### UMAP with batch correction
-sc.pp.neighbors(adata, use_rep="X_scVI") # use latent space
-sc.tl.umap(adata, min_dist=0.3)
+# sc.pp.neighbors(adata, use_rep="X_scVI") # use latent space
+# sc.tl.umap(adata, min_dist=0.3)
 
-sc.pl.umap(
-    adata,
-    color=["cell_type"],
-    frameon=False,
-)
-sc.pl.umap(
-    adata,
-    color=["donor", "cell_source"],
-    ncols=2,
-    frameon=False,
-)
+# sc.pl.umap(
+#     adata,
+#     color=["cell_type"],
+#     frameon=False,
+# )
+# sc.pl.umap(
+#     adata,
+#     color=["donor", "cell_source"],
+#     ncols=2,
+#     frameon=False,
+# )
+
+# 1v1 DE cell types, Myeloid vs Fibroblast
+# de_df = model.differential_expression(
+#     groupby="cell_type",
+#     group1="Myeloid",
+#     group2="Fibroblast"
+# )
+# DataFrame.to_csv(self=de_df, path_or_buf="output/df/1v1DE.csv")
+
+# 1vAll DE, all cell types 
+# de_df = model.differential_expression(
+#     groupby="cell_type"
+# )
+# DataFrame.to_csv(self=de_df, path_or_buf="output/df/1vAllDE.csv")
+
