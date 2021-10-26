@@ -7,7 +7,7 @@ saveLocation = "models/intro/hca_ss"
 # load data/check if its there
 adata = scvi.data.heart_cell_atlas_subsampled()
 
-print(adata.var.head())
+# print(adata.var.head())
 
 # preprocessing: filter out anything with less than x counts
 sc.pp.filter_genes(adata, min_counts=3)

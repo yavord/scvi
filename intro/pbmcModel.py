@@ -39,9 +39,17 @@ sc.pp.log1p(adata)
 # keep raw data
 adata.raw = adata
 
+sc.pp.highly_variable_genes(
+    adata,
+    n_top_genes=1200,
+    subset=True,
+    layer="counts",
+    flavor="seurat_v3",
+    batch_key="batch"
+)
+
 scvi.model.SCVI.setup_anndata(adata, layer="counts", batch_key="batch")
-print(scvi.data.view_anndata_setup(adata))
-# scvi.model.TOTALVI.setup_anndata(pbmc5k, protein_expression_obsm_key="protein_expression")
+scvi.model.TOTALVI.setup_anndata(pbmc5k, protein_expression_obsm_key="protein_expression")
 model = scvi.model.SCVI(adata)
 model.train()
 model.save(saveLocation, save_anndata=True)
