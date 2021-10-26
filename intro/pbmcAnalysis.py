@@ -14,12 +14,14 @@ denoised = model.get_normalized_expression(adata, library_size=1e4)
 adata.layers["scvi_normalized"] = model.get_normalized_expression(library_size=10e4)
 
 sc.pp.neighbors(adata, use_rep="X_scVI") # use latent space
+sc.tl.leiden(adata)
 sc.tl.umap(adata, min_dist=0.3)
 
 sc.pl.umap(
     adata,
-    color=["batch"],
+    color=["batch", "leiden"],
     frameon=False,
+    ncols = 1,
 )
 
 de_df = model.differential_expression(
